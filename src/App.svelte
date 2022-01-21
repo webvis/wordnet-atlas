@@ -1,5 +1,18 @@
 <script>
 	import { View, Layer, InfoBox, OmniBox, FloorLayersCtrl, ResultsBox, InlineSVG } from 'anymapper'
+	import CirclesExample from './CirclesExample.svelte'
+
+	let data = [{
+		x: 100,
+		y: 100,
+		v: 200,
+		color: 'orange'
+	},{
+		x: 400,
+		y: 200,
+		v: 250,
+		color: 'teal'
+	}]
 </script>
 
 <style>
@@ -60,15 +73,7 @@
 <div class="wrapper">
 
 <View viewBox="0 0 800 800">
-	<Layer name="T" type="floor">
-		<InlineSVG path='data/floor0.svg'/>
-	</Layer>
-	<Layer name="1" type="floor">
-		<InlineSVG path='data/floor1.svg'/>
-	</Layer>
-	<Layer name="2" type="floor">
-		<InlineSVG path='data/floor2.svg'/>
-	</Layer>
+	<CirclesExample {data}/>
 </View>
 
 <FloorLayersCtrl/>
