@@ -1,18 +1,23 @@
 <script>
+	import * as d3 from 'd3'
+	import { onMount } from 'svelte'
 	import { View, Layer, InfoBox, OmniBox, FloorLayersCtrl, ResultsBox, InlineSVG } from 'anymapper'
-	import CirclesExample from './CirclesExample.svelte'
+	import { treeify, pack } from './layout.js'
+	import BubblePack from './BubblePack.svelte'
 
-	let data = [{
-		x: 100,
-		y: 100,
-		v: 200,
-		color: 'orange'
-	},{
-		x: 400,
-		y: 200,
-		v: 250,
-		color: 'teal'
-	}]
+	let bubbles = []
+	let bubble_color
+
+	onMount(async function() {
+		let data = await (await fetch('data/wnen30_core_n_longest.json')).json()
+		let tree = treeify(data)
+		pack(tree, 1000, 1000)
+
+		bubble_color = d3.scaleSequential([tree.height,0], d3.interpolateBlues)
+
+		bubbles = tree.descendants()
+	})
+
 </script>
 
 <style>
@@ -48,7 +53,7 @@
 		width: 350px;
 	}
 	:global(.view) {
-		background: #e3f4d7;
+		background: white;
 	}
 
 	:global(.selectable) {
@@ -72,8 +77,8 @@
 
 <div class="wrapper">
 
-<View viewBox="0 0 800 800">
-	<CirclesExample {data}/>
+<View viewBox="0 0 1000 1000">
+	<BubblePack data={bubbles} {bubble_color}/>
 </View>
 
 <FloorLayersCtrl/>
