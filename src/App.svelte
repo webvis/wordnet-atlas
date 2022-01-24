@@ -1,12 +1,14 @@
 <script>
 	import * as d3 from 'd3'
 	import { onMount } from 'svelte'
-	import { View, Layer, InfoBox, OmniBox, FloorLayersCtrl, ResultsBox, InlineSVG } from 'anymapper'
+	import { Content } from '@smui/card'
+	import { View, Layer, InfoBox, OmniBox, FloorLayersCtrl, ResultsBox, InfoBoxHeader, selected_id, selection } from 'anymapper'
 	import { treeify, pack } from './layout.js'
 	import BubblePack from './BubblePack.svelte'
 
 	let bubbles = []
 	let bubble_color
+	let bubble_index = new Map()
 
 	onMount(async function() {
 		let data = await (await fetch('data/wnen30_core_n_longest.json')).json()
@@ -16,7 +18,22 @@
 		bubble_color = d3.scaleSequential([tree.height,0], d3.interpolateBlues)
 
 		bubbles = tree.descendants()
+
+		// index bubbles according to their path
+		bubbles.forEach(d => bubble_index.set(d.data.path, d))
 	})
+
+	function updateSelection(_) {
+		if(bubble_index.has($selected_id))
+			$selection = bubble_index.get($selected_id)
+		else
+			$selection = null
+	}
+	selected_id.subscribe(updateSelection)
+
+	function get_synset_title(d) {
+		return d.children.filter(x => x.data.original_node.type == 'sense').map(x => x.data.original_node.lemma).join(', ')
+	}
 
 </script>
 
@@ -81,8 +98,6 @@
 	<BubblePack data={bubbles} {bubble_color}/>
 </View>
 
-<FloorLayersCtrl/>
-
 <OmniBox>
 	<ResultsBox>
 		Hi
@@ -90,7 +105,12 @@
 </OmniBox>
 
 <InfoBox>
-	Hello
+	{#if $selection.data.original_node.type == 'synset'}
+		<InfoBoxHeader title="{get_synset_title($selection)}" subtitle="Synset {$selection.data.original_node.id}"/>
+		<Content>{$selection.data.original_node.defintion}</Content>
+	{:else if $selection.data.original_node.type == 'sense'}
+		<InfoBoxHeader title="{$selection.data.original_node.lemma}" subtitle="Sense {$selection.data.original_node.id}"/>
+	{/if}
 </InfoBox>
 
 <footer>Powered by <a href="https://github.com/webvis/anymapper">anymapper</a>, by <a href="//hct.iit.cnr.it/">Human Centered Technologies Lab</a> @<a href="//www.iit.cnr.it/">IIT-CNR</a></footer>

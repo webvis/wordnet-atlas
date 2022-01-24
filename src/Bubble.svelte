@@ -1,5 +1,5 @@
 <script>
-	import { selection } from 'anymapper'
+	import { selection, select } from 'anymapper'
     
 	export let d
     export let bubble_color
@@ -19,6 +19,6 @@
         cy="{d.x}"
         r="{d.r}"
         fill={bubble_color(d.height)}
-        on:click="{() => $selection = d}" class:selected="{$selection == d}"
+        on:click="{() => select(d.data.path) }" class:selected="{$selection == d}"
     />
 </g>
