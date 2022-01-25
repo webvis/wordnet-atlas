@@ -47,7 +47,6 @@
             on:click="{() => select(sense_child.data.path) }"
             class:selected="{$selection == sense_child}"
         >{ sense_child.data.original_node.lemma }
-        </tspan>
-        <tspan class="comma">{i < sense_children.length-1 ? ',' : ''}</tspan>
+        </tspan><tspan class="comma">{i < sense_children.length-1 ? ',' : ''}</tspan>
     {/each}
 </text>
