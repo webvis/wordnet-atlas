@@ -19,7 +19,7 @@
     "svelte-material-ui": "^1.0.0"
   },
   "dependencies": {
-    "anymapper": "^0.8.0",
+    "anymapper": "^0.8.2",
     "lunr": "^2.3.9",
     "sirv-cli": "^0.4.4"
   }
