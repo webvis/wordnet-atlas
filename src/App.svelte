@@ -21,6 +21,9 @@
 
 		// index nodes according to their path
 		nodes.forEach(d => node_index.set(d.data.path, d))
+
+		// add a "position" property to each node, to inform anymapper of their location
+		nodes.forEach(d => d.position = {x: d.y, y: d.x})
 	})
 
 	function updateSelection(_) {
