@@ -34,6 +34,9 @@
         text-transform: uppercase;
         font-size: smaller;
     }
+    .sensenum {
+        font-weight: bold;
+    }
     .definition {
         font-style: italic;
     }
@@ -42,6 +45,6 @@
 <Content>
     <span class="title">{type == 'synset' ? get_synset_title(d) : d.data.original_node.lemma}</span>
     <span class="pos">{expand_pos(d.data.original_node.pos)}</span>
-    -
+    <span class="sensenum">{type == 'synset' ? '-' : d.data.original_node.sensenum+'.'}</span>
     <span class="definition">{type == 'synset' ? d.data.original_node.definition : d.parent.data.original_node.definition}</span>
 </Content>
