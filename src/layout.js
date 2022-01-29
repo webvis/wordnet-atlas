@@ -14,8 +14,12 @@ export function treeify(graph) {
       if(d.source.children === undefined) {
         d.source.children = []
       }
+      if(d.target.parents === undefined) {
+        d.target.parents = []
+      }
   
       d.source.children.push(d.target)
+      d.target.parents.push(d.source)
     })
     
     // construct a redundant hierarchy with all the paths from root to leaves

@@ -19,6 +19,8 @@
 
 		nodes = tree.descendants()
 
+		console.log(nodes)
+
 		// index nodes according to their path
 		nodes.forEach(d => node_index.set(d.data.path, d))
 
