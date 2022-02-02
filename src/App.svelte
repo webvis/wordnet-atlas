@@ -1,7 +1,7 @@
 <script>
 	import * as d3 from 'd3'
 	import { onMount } from 'svelte'
-	import { View, Layer, InfoBox, OmniBox, FloorLayersCtrl, ResultsBox, InfoBoxHeader, selected_id, selection } from 'anymapper'
+	import { View, InfoBox, OmniBox, ResultsBox, selected_id, selection } from 'anymapper'
 	import { treeify, pack } from './layout.js'
 	import BubblePack from './BubblePack.svelte'
 	import Info from './Info.svelte'

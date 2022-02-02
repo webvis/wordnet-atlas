@@ -1,12 +1,10 @@
 <script>
-	import { current_transform, viewport } from 'anymapper'
+	import { zoom, viewport } from 'anymapper'
 	import Bubble from './Bubble.svelte'
 	import BubbleLabel from './BubbleLabel.svelte'
 
 	export let data
 	export let bubble_color
-
-	$: z = $current_transform.k
 
 	function should_bubble_be_visibile(d, zoom, view) {
 		const is_synset = d.data.original_node.type == 'synset'
@@ -28,12 +26,12 @@
 
 <g>
 	{#each data as d}
-		{#if should_bubble_be_visibile(d, z, $viewport)}
+		{#if should_bubble_be_visibile(d, $zoom, $viewport)}
 			<Bubble {d} {bubble_color}/>
 		{/if}
 	{/each}
 	{#each data as d}
-		{#if should_bubble_label_be_visible(d, z, $viewport)}
+		{#if should_bubble_label_be_visible(d, $zoom, $viewport)}
 			<BubbleLabel {d}/>
 		{/if}
 	{/each}
