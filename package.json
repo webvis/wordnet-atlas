@@ -12,14 +12,14 @@
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-postcss": "^3.1.8",
-    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.26.12",
     "svelte": "^3.0.0",
     "svelte-material-ui": "^1.0.0"
   },
   "dependencies": {
-    "anymapper": "^0.10.3",
+    "anymapper": "^0.16.0",
     "lunr": "^2.3.9",
     "sirv-cli": "^0.4.4"
   }
